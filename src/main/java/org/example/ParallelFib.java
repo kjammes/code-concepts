@@ -7,8 +7,8 @@ import java.util.concurrent.Executors;
 
 class ParallelFib {
     private int fib(int n, Map<Integer, Integer> cache) {
-//        if (cache.containsKey(n))
-//            return cache.get(n);
+        if (cache.containsKey(n))
+            return cache.get(n);
 
         if (n <= 1) return n;
 
@@ -34,7 +34,7 @@ class ParallelFib {
         }
     }
 
-    void printFibInVirtualThread(int[] nums) {
+    void printFibInVirtualThreadRaw(int[] nums) {
         for (int num : nums) {
             try {
                 Thread.ofVirtual().start(() -> {
@@ -43,6 +43,17 @@ class ParallelFib {
                 }).join();
             } catch (InterruptedException e) {
                 System.out.printf("Interrupted Exception in virtual threads execution %s \n", e.getLocalizedMessage());
+            }
+        }
+    }
+
+    void printFibInVirtualThread(int[] nums) {
+        for (int num : nums) {
+            try (var executorService = Executors.newVirtualThreadPerTaskExecutor()) {
+                executorService.submit(() -> printFibAndThreadDetails(num));
+                executorService.shutdown();
+            } catch (Exception e) {
+                System.out.printf("Interrupted Exception in virtual threads execution through executor service %s \n", e.getLocalizedMessage());
             }
         }
     }
