@@ -47,6 +47,13 @@ class ParallelFib {
         }
     }
 
+    /**
+     * Don't pool virtual threads, they are extremely lightweight, and we can just use and discard them.
+     * Never assume a certain function will be mounting/unmounting or just won't support that behavior.
+     * Mounting/unmounting is that a virtual threads doesn't block and wait if a method is taking time like IO operations for example.
+     * If there's a CPU intensive task VTs(virtual threads) don't provide any benefit since it'll have to wait till task is complete.
+     * On the other hand it does add overhead of mounting and unmounting which is not needed so we can use just normal threads in such cases.
+     */
     void printFibInVirtualThread(int[] nums) {
         for (int num : nums) {
             try (var executorService = Executors.newVirtualThreadPerTaskExecutor()) {
