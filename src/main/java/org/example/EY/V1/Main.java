@@ -8,5 +8,6 @@ public class Main {
                 {1, 1, 1}
         };
         NearestZero.nearestZero(matrix);
+        System.out.println(LongestDiverseString.longestDiverseString(1, 1, 7));
     }
 }
