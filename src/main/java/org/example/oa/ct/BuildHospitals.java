@@ -20,7 +20,8 @@ public class BuildHospitals {
         for (int node = 1; node <= n; node++) {
             if (visited[node])
                 continue;
-            res = Math.min(res, dfs(graph, node, visited, cost));
+            Pair p = dfs(graph, node, visited, cost);
+            res = Math.min(res, p.sum - p.max);
         }
         return res;
     }
@@ -28,20 +29,37 @@ public class BuildHospitals {
     /**
      * Recursively calculates the min cost required to build a hospital in given graph component
      */
-    private static int dfs(List<Integer>[] graph, int node, boolean[] visited, int[] cost) {
+    private static Pair dfs(List<Integer>[] graph, int node, boolean[] visited, int[] cost) {
         visited[node] = true;
-        int minCost = 0;
-        for (int adj: graph[node]) {
-            minCost += cost[adj - 1];
-        }
-
+        int sum = cost[node - 1];
+        int max = cost[node - 1];
         for (int adj: graph[node]) {
             if (visited[adj])
                 continue;
-            minCost = Math.min(minCost, dfs(graph, adj, visited, cost));
+            Pair result = dfs(graph, adj, visited, cost);
+            sum += result.sum;
+            max = Math.max(max, result.max);
+        }
+        return new Pair(sum, max);
+    }
+
+    private static class Pair {
+        int max;
+        int sum;
+        Pair() {
+            this.max = Integer.MIN_VALUE;
+            this.sum = 0;
         }
 
-        return minCost;
+        Pair (int sum, int max) {
+            this.sum = sum;
+            this.max = max;
+        }
+
+        @Override
+        public String toString() {
+            return "max : " + this.max + " sum : " + this.sum;
+        }
     }
 
     /**

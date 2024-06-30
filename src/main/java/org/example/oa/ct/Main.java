@@ -5,7 +5,7 @@ public class Main {
         /* number of cities */
         int n = 7;
         int m = 7;
-        int[] A = new int[] {1, 3, 5, 3, 6, 2, 2};
+        int[] A = new int[] {1, 3, 5, 3, 6, 1, 2};
         int[][] roads = new int[][] {
                 {1, 2}, {2, 3}, {1, 7}, {2, 4}, {3, 4}, {4, 5}, {4, 6}
         };
