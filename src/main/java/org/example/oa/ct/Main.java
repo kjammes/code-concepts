@@ -13,6 +13,13 @@ public class Main {
 
         System.out.println("min cost to build hospitals : " + BuildHospitals.minCost(n, m, A, roads));
         System.out.println("min cost to build hospitals 2 : " + BuildHospitals.minCost(2, 1, new int[] {3, 5}, new int[][] { {1, 2} }));
+        System.out.println("min cost to build hospitals 3 : " + BuildHospitals.minCost(
+                8, 6,
+                new int[] {5, 7, 15, 4, 10, 12, 3, 2},
+                new int[][] {
+                        {1, 2}, {1, 3}, {2, 5}, {4, 6}, {3,7}, {3, 8}
+                }
+                ));
 
     }
 }

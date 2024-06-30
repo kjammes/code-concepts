@@ -16,12 +16,12 @@ public class BuildHospitals {
         List<Integer>[] graph = buildGraph(n, roads);
         boolean[] visited = new boolean[n + 1];
 
-        int res = Integer.MAX_VALUE;
+        int res =  0;
         for (int node = 1; node <= n; node++) {
             if (visited[node])
                 continue;
             Pair p = dfs(graph, node, visited, cost);
-            res = Math.min(res, p.sum - p.max);
+            res += p.sum - p.max;
         }
         return res;
     }
