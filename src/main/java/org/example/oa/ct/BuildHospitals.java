@@ -25,6 +25,9 @@ public class BuildHospitals {
         return res;
     }
 
+    /**
+     * Recursively calculates the min cost required to build a hospital in given graph component
+     */
     private static int dfs(List<Integer>[] graph, int node, boolean[] visited, int[] cost) {
         visited[node] = true;
         int minCost = 0;
